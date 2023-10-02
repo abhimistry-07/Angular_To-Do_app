@@ -1,0 +1,221 @@
+<!-- <div *ngFor="let task of tasks">
+  <div *ngIf="!task.editing">
+    <h3>{{ task.title }}</h3>
+    <p>{{ task.description }}</p>
+
+    <input
+      type="checkbox"
+      [(ngModel)]="task.completed"
+      (change)="updateTask(task)"
+    />
+
+    <button (click)="deleteTask(task.id)">Delete</button>
+    <button (click)="editTask(task)">Edit</button>
+  </div>
+
+  <div *ngIf="task.editing">
+    <form>
+      <input [(ngModel)]="task.title" name="title" placeholder="Task Title" />
+      <textarea
+        [(ngModel)]="task.description"
+        name="description"
+        placeholder="Task Description"
+      ></textarea>
+      <button (click)="saveTask(task)">Save</button>
+    </form>
+  </div>
+</div> -->
+
+<section class="vh-100">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col">
+        <div
+          class="card"
+          id="list1"
+          style="border-radius: 0.75rem; background-color: #eff1f2"
+        >
+          <div class="card-body py-4 px-4 px-md-5">
+            <p class="h1 text-center mt-3 mb-4 pb-3 text-primary">
+              <!-- <i class="fas fa-check-square me-1"></i> -->
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="1em"
+                viewBox="0 0 448 512"
+              >
+                <style>
+                  svg {
+                    fill: #0d6efd;
+                  }
+                </style>
+                <path
+                  d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zM337 209L209 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L303 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"
+                />
+              </svg>
+              <u>Add New Todo</u>
+            </p>
+
+            <div class="pb-2">
+              <div class="card">
+                <div class="card-body">
+                  <app-todo-form (taskAdded)="addTask($event)"></app-todo-form>
+                </div>
+              </div>
+            </div>
+
+            <hr class="my-4" />
+
+            <div
+              class="d-flex justify-content-end align-items-center mb-4 pt-2 pb-3"
+            >
+              <p class="small mb-0 me-2 text-muted">Filter</p>
+              <select class="select">
+                <option value="1">All</option>
+                <option value="2">Completed</option>
+                <option value="3">Active</option>
+                <!-- <option value="4">Has due date</option> -->
+              </select>
+              <!-- <p class="small mb-0 ms-4 me-2 text-muted">Sort</p>
+              <select class="select">
+                <option value="1">Added date</option>
+                <option value="2">Due date</option>
+              </select> -->
+              <!-- <a
+                href="#!"
+                style="color: #23af89"
+                data-mdb-toggle="tooltip"
+                title="Ascending"
+                ><i class="fas fa-sort-amount-down-alt ms-2"></i
+              ></a> -->
+            </div>
+
+            <div *ngFor="let task of tasks">
+              <div *ngIf="!task.editing">
+                <ul
+                  class="list-group list-group-horizontal rounded-0 bg-transparent"
+                >
+                  <li
+                    class="list-group-item d-flex align-items-center ps-0 pe-3 py-1 rounded-0 border-0 bg-transparent"
+                  >
+                    <div class="form-check">
+                      <input
+                        class="form-check-input me-0"
+                        type="checkbox"
+                        value=""
+                        id="flexCheckChecked1"
+                        aria-label="..."
+                        checked
+                        [(ngModel)]="task.completed"
+                        (change)="updateTask(task)"
+                      />
+                    </div>
+                  </li>
+                  <li
+                    class="list-group-item px-3 py-1 d-flex align-items-center flex-grow-1 border-0 bg-transparent"
+                  >
+                    <p class="lead fw-normal mb-0">
+                      {{ task.title }}
+                    </p>
+                  </li>
+                  <li
+                    class="list-group-item px-3 py-1 d-flex align-items-center flex-grow-1 border-0 bg-transparent"
+                  >
+                    <p class="lead fw-normal mb-0">
+                      {{ task.description }}
+                    </p>
+                  </li>
+                  <li
+                    class="list-group-item ps-3 pe-0 py-1 rounded-0 border-0 bg-transparent"
+                  >
+                    <div class="d-flex flex-row justify-content-end mb-1">
+                      <a
+                        href="#!"
+                        class="text-info"
+                        data-mdb-toggle="tooltip"
+                        title="Edit todo"
+                        (click)="editTask(task)"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          height="1em"
+                          viewBox="0 0 512 512"
+                          style="fill: #26c6da"
+                        >
+                          <path
+                            d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0-22.6z"
+                          />
+                        </svg>
+                      </a>
+                      <a
+                        href="#!"
+                        class="text-danger"
+                        data-mdb-toggle="tooltip"
+                        title="Delete todo"
+                        style="margin-left: 20px"
+                        (click)="deleteTask(task.id)"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          height="1em"
+                          viewBox="0 0 448 512"
+                          style="fill: #e64a19"
+                        >
+                          <path
+                            d="M135.2 17.7C140.6 6.8 151.7 0 163.8 0H284.2c12.1 0 23.2 6.8 28.6 17.7L320 32h96c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 96 0 81.7 0 64S14.3 32 32 32h96l7.2-14.3zM32 128H416V448c0 35.3-28.7 64-64 64H96c-35.3 0-64-28.7-64-64V128zm96 64c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16z"
+                          />
+                        </svg>
+                      </a>
+                    </div>
+
+                    <!-- <div class="text-end text-muted">
+                      <a
+                        href="#!"
+                        class="text-muted"
+                        data-mdb-toggle="tooltip"
+                        title="Created date"
+                      >
+                        <p class="small mb-0">
+                          <i class="fas fa-info-circle me-2"></i>28th Jun 2020
+                        </p>
+                      </a>
+                    </div> -->
+                  </li>
+                </ul>
+              </div>
+
+              <div *ngIf="task.editing" class="text-center mt-3 mb-3">
+                <hr />
+                <h2>Edit Todo</h2>
+                <form class="form-inline mx-auto" style="width: 300px">
+                  <div class="form-group mr-2">
+                    <input
+                      [(ngModel)]="task.title"
+                      name="title"
+                      class="form-control"
+                      placeholder="Task Title"
+                    />
+                  </div>
+                  <div class="form-group mr-2">
+                    <textarea
+                      [(ngModel)]="task.description"
+                      name="description"
+                      class="form-control"
+                      placeholder="Task Description"
+                    ></textarea>
+                  </div>
+                  <div class="text-center mt-3">
+                    <button (click)="saveTask(task)" class="btn btn-primary">
+                      Save
+                    </button>
+                  </div>
+                </form>
+                <hr />
+              </div>
+            </div>
+            <hr />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
